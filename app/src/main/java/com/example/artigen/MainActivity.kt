@@ -1,11 +1,12 @@
 package com.example.artigen
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity(), JNICallback {
+class MainActivity : AppCompatActivity() {
     companion object {
         init {
             System.loadLibrary("artigen_android")
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity(), JNICallback {
 
     private var button: Button? = null
 
-    private external fun invokeCallbackViaJNI(callback: JNICallback)
+    private external fun invokeCallbackViaJNI(): ArrayList<IntArray>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +23,13 @@ class MainActivity : AppCompatActivity(), JNICallback {
 
         button = findViewById<Button>(R.id.toast_button)
         button?.setOnClickListener {
-            invokeCallbackViaJNI(this)
-        }
-    }
+            val l = invokeCallbackViaJNI()
 
-    override fun callback(string: String?) {
-        val toast = Toast.makeText(this@MainActivity, "From JNI: $string", Toast.LENGTH_LONG)
-        toast.show()
+            for (i in l) {
+                for (j in i) {
+                    Log.i("TESTING", "Item Row $i: $j")
+                }
+            }
+        }
     }
 }
