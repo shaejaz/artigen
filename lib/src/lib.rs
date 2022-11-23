@@ -1,34 +1,30 @@
-use std::os::raw::{c_char};
-use std::ffi::{CString, CStr};
-use rand::Rng;
+extern crate jni;
+
+use std::ffi::CString;
+use std::os::raw::c_char;
+
+use jni::JNIEnv;
+use jni::objects::{JClass, JObject, JValue};
+
+pub type Callback = unsafe extern "C" fn(*const c_char) -> ();
 
 #[no_mangle]
-pub extern fn rust_doing_something(to: *const c_char) -> *mut c_char {
-    let c_str = unsafe { CStr::from_ptr(to) };
-    let reciever = match c_str.to_str() {
-        Err(_) => "Error",
-        Ok(string) => string,
-    };
-    // Let's generate a random number from the said range below that can act as a code
-    let num = rand::thread_rng().gen_range(1000..9999);
-    let numString = num.to_string();
-
-    CString::new(reciever.to_owned() + Box::leak(numString.into_boxed_str())).unwrap().into_raw()
+#[allow(non_snake_case)]
+pub extern "C" fn invokeCallbackViaJNA(callback: Callback) {
+    let s = CString::new("Hello from Rust").unwrap();
+    unsafe { callback(s.as_ptr()); }
 }
 
-#[cfg(target_os="android")]
+#[no_mangle]
 #[allow(non_snake_case)]
-pub mod android {
-    extern crate jni;use super::*;
-    use self::jni::JNIEnv;
-    use self::jni::objects::{JClass, JString};
-    use self::jni::sys::{jstring};// Access our RustBridge class doSomething function
-    #[no_mangle]
-    pub unsafe extern fn Java_com_example_artigen_RustBridge_invokeFunction(env: JNIEnv, _: JClass, java_pattern: JString) -> jstring {
-        let info = rust_doing_something(env.get_string(java_pattern).expect("Invalid!").as_ptr());
-        let info_pointer = CString::from_raw(info);
-        let output = env.new_string(info_pointer.to_str().unwrap()).expect("Couldn't create string from Android Function!");
-
-        output.into_inner()
-    }
+pub extern "C" fn Java_com_example_artigen_MainActivity_invokeCallbackViaJNI(
+    env: JNIEnv,
+    _class: JClass,
+    callback: JObject
+) {
+    let s = String::from("Hello from Rust");
+    let response = env.new_string(&s)
+        .expect("Couldn't create java string!");
+    env.call_method(callback, "callback", "(Ljava/lang/String;)V",
+                    &[JValue::from(JObject::from(response))]).unwrap();
 }

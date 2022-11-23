@@ -77,4 +77,14 @@
         app:srcCompat="@android:drawable/ic_menu_preferences"
         app:tint="#000000" />
 
+    <Button
+        android:id="@+id/toast_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Generate Toast"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
