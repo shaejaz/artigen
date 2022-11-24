@@ -2,20 +2,12 @@ extern crate jni;
 
 use std::ffi::CString;
 use std::os::raw::c_char;
+use rand::Rng;
 
 use jni::JNIEnv;
 use jni::objects::{JClass, JList, JObject, JValue};
 use jni::sys::{jint, jintArray, jlong, jobject};
 use jni::signature::{ReturnType, Primitive};
-
-pub type Callback = unsafe extern "C" fn(*const c_char) -> ();
-
-#[no_mangle]
-#[allow(non_snake_case)]
-pub extern "C" fn invokeCallbackViaJNA(callback: Callback) {
-    let s = CString::new("Hello from Rust").unwrap();
-    unsafe { callback(s.as_ptr()); }
-}
 
 #[no_mangle]
 #[allow(non_snake_case)]
@@ -28,25 +20,44 @@ pub extern "C" fn Java_com_example_artigen_MainActivity_invokeCallbackViaJNI(
         "(I)V",
         &[JValue::Int(5 as i32)]).expect("TODO: panic message"
     );
-    let list = JList::from_env(&env, list_object).expect("TODO: panic message");
+    let main_list = JList::from_env(&env, list_object).expect("TODO: panic message");
 
-    for i in 0..2 {
-        let arr = env.new_int_array(3).expect("test");
-        let norm = i * 3;
+    let x = 50;
+    let y = 50;
 
-        let el1 = 1 + norm;
-        let el2 = 2 + norm;
-        let el3 = 3 + norm;
-        let buf = &[el1, el2, el3];
+    for i in 0..x {
+        let row_object = env.new_object(
+            "java/util/ArrayList",
+            "(I)V",
+            &[JValue::Int(5 as i32)]).expect("TODO: panic message"
+        );
+        let row = JList::from_env(&env, row_object).expect("TODO: panic message");
 
-        env.set_int_array_region(arr, 0, buf).expect("TODO: panic message");
-        let mut new_obj = JObject::null();
-        unsafe {
-            new_obj = JObject::from_raw(arr);
+        for j in 0..y {
+            let r = rand::thread_rng().gen_range(0..256);
+            let g = rand::thread_rng().gen_range(0..256);
+            let b = rand::thread_rng().gen_range(0..256);
+
+            let r_obj = env.new_object("java/lang/Integer", "(I)V", &[JValue::Int(r)]).expect("test");
+            let g_obj = env.new_object("java/lang/Integer", "(I)V", &[JValue::Int(g)]).expect("test");
+            let b_obj = env.new_object("java/lang/Integer", "(I)V", &[JValue::Int(b)]).expect("test");
+
+            let rgb_object = env.new_object(
+                "java/util/ArrayList",
+                "(I)V",
+                &[JValue::Int(5 as i32)]).expect("TODO: panic message"
+            );
+            let rgb = JList::from_env(&env, rgb_object).expect("TODO: panic message");
+
+            rgb.add(r_obj).expect("test");
+            rgb.add(g_obj).expect("test");
+            rgb.add(b_obj).expect("test");
+
+            row.add(JObject::from(rgb)).expect("test")
         }
 
-        list.add(new_obj).expect("TODO: panic message");
+        main_list.add( JObject::from( row)).expect("test")
     }
 
-    list.into_raw()
+    main_list.into_raw()
 }

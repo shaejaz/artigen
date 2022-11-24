@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     private var button: Button? = null
 
-    private external fun invokeCallbackViaJNI(): ArrayList<IntArray>
+    private external fun invokeCallbackViaJNI(): ArrayList<ArrayList<ArrayList<Integer>>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
