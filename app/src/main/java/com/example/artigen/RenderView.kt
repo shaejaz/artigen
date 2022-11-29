@@ -13,11 +13,9 @@ class RenderView : View {
     private val lineColors = arrayOf(Color.CYAN, Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.MAGENTA, Color.BLACK, Color.LTGRAY)
     var pixelArray: ArrayList<ArrayList<ArrayList<Int>>>? = null
 
-    constructor(context: Context) : super(context) {
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-    }
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
 
     override fun onDraw(canvas: Canvas?) {
         painter.isAntiAlias = false
@@ -42,8 +40,8 @@ class RenderView : View {
         }
 
         if (pixelArray != null) {
-            val startX = 300
-            val startY = 300
+            val startX = 0
+            val startY = 0
 
             pixelArray?.forEachIndexed { idxRow, row ->
                 row.forEachIndexed { idxY, y ->
