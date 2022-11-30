@@ -3,7 +3,6 @@ package com.example.artigen
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
