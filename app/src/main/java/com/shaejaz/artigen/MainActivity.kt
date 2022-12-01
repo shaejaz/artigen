@@ -1,4 +1,4 @@
-package com.example.artigen
+package com.shaejaz.artigen
 
 import android.os.Build
 import android.os.Bundle
@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.artigen.image.ImageViewModel
+import com.shaejaz.artigen.R
+import com.shaejaz.artigen.image.ImageViewModel
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 

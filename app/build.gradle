@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.artigen'
+    namespace 'com.shaejaz.artigen'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.artigen"
+        applicationId "com.shaejaz.artigen"
         minSdk 21
         targetSdk 32
         versionCode 1

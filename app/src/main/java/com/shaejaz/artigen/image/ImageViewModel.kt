@@ -1,4 +1,4 @@
-package com.example.artigen.image
+package com.shaejaz.artigen.image
 
 import android.graphics.BitmapFactory
 import android.os.Build

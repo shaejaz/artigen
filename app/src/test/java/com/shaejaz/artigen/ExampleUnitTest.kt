@@ -1,4 +1,4 @@
-package com.example.artigen
+package com.shaejaz.artigen
 
 import org.junit.Test
 
