@@ -1,63 +1,57 @@
 package com.example.artigen
 
-import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.artigen.image.ImageViewModel
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.Base64
 
+@RequiresApi(Build.VERSION_CODES.O)
 class MainActivity : AppCompatActivity() {
-    companion object {
-        init {
-            System.loadLibrary("artigen_android")
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private val decoder = Base64.getDecoder()
-
+    private val imageViewModel: ImageViewModel by viewModels()
     private var button: Button? = null
 
-    private external fun invokeCallbackViaJNI(): String
-
-    private suspend fun invokeCallbackViaJNIAsync(): String {
-        return withContext(Dispatchers.Default) {
-            return@withContext invokeCallbackViaJNI()
-        }
-    }
-
-    private fun updateImage(bytes: ByteArray) {
-        val imageView = findViewById<ImageView>(R.id.imageView)
-
-        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        imageView.setImageBitmap(bitmap)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val render = findViewById<RenderView>(R.id.renderView)
+        val imageView = findViewById<ImageView>(R.id.imageView)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    imageViewModel.image.collect {
+                        imageView.setImageBitmap(it)
+                    }
+                }
+
+                launch {
+                    imageViewModel.imageGenerating.drop(1).collect { generating ->
+                        var toast: Toast
+                        if (generating) {
+                            toast = Toast.makeText(this@MainActivity, "Image has started generating", Toast.LENGTH_LONG)
+                        } else {
+                            toast = Toast.makeText(this@MainActivity, "Image generation finished", Toast.LENGTH_SHORT)
+                        }
+
+                        toast.show()
+                    }
+                }
+            }
+        }
 
         button = findViewById(R.id.toast_button)
         button?.setOnClickListener {
-
-            GlobalScope.launch {
-                val code = invokeCallbackViaJNIAsync()
-                val bytes = decoder.decode(code)
-
-                this@MainActivity.runOnUiThread {
-                    updateImage(bytes)
-                }
-            }
+            imageViewModel.generateImage()
         }
     }
 }

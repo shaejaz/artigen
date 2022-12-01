@@ -25,7 +25,7 @@ fn generate_image() -> String {
 
 #[no_mangle]
 #[allow(non_snake_case)]
-pub extern "C" fn Java_com_example_artigen_MainActivity_invokeCallbackViaJNI(
+pub extern "C" fn Java_com_example_artigen_image_ImageViewModel_generateImageJNI(
     env: JNIEnv,
     _class: JClass
 ) -> jstring {
