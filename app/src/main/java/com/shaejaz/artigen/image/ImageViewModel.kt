@@ -13,11 +13,11 @@ import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 class ImageViewModel: ViewModel() {
-    companion object {
-        init {
-            System.loadLibrary("artigen_android")
-        }
-    }
+//    companion object {
+//        init {
+//            System.loadLibrary("artigen_android")
+//        }
+//    }
 
     private val decoder = Base64.getDecoder()
 

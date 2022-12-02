@@ -4,7 +4,7 @@ use artigen::patterns::{julia, Pattern};
 use artigen::output::base64;
 
 use jni::JNIEnv;
-use jni::objects::{JClass};
+use jni::objects::{JClass, JString};
 use jni::sys::{jstring};
 
 fn generate_image() -> String {
@@ -25,9 +25,9 @@ fn generate_image() -> String {
 
 #[no_mangle]
 #[allow(non_snake_case)]
-pub extern "C" fn Java_com_example_artigen_image_ImageViewModel_generateImageJNI(
+pub extern "C" fn Java_com_shaejaz_artigen_image_ImageViewModel_generateImageJNI(
     env: JNIEnv,
-    _class: JClass
+    _class: JClass,
 ) -> jstring {
     let img = generate_image();
 
