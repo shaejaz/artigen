@@ -5,7 +5,7 @@ import com.shaejaz.artigen.data.Pattern
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-object DefaultConfigRepository: ConfigRepository {
+class DefaultConfigRepository: ConfigRepository {
     private val _availablePatterns = MutableSharedFlow<List<Pattern>>()
     private val _config = MutableSharedFlow<Config>()
     private val _selectPattern = MutableSharedFlow<Pattern>()

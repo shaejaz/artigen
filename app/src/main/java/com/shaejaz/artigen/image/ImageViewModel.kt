@@ -5,14 +5,21 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shaejaz.artigen.data.Config
+import com.shaejaz.artigen.data.repositories.ConfigRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.O)
-class ImageViewModel: ViewModel() {
+@HiltViewModel
+class ImageViewModel @Inject constructor(
+    private val configRepository: ConfigRepository
+): ViewModel() {
 //    companion object {
 //        init {
 //            System.loadLibrary("artigen_android")
@@ -50,5 +57,9 @@ class ImageViewModel: ViewModel() {
             _imageGenerating.emit(false)
             _imageBase64String.emit(imageCode)
         }
+    }
+
+    fun observeConfig(): Flow<Config> {
+        return configRepository.observeConfig()
     }
 }

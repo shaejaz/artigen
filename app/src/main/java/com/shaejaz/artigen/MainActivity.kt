@@ -2,6 +2,7 @@ package com.shaejaz.artigen
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -14,17 +15,17 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.shaejaz.artigen.image.ImageViewModel
 import com.shaejaz.artigen.patternconfig.PatternConfigFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-
 
 @RequiresApi(Build.VERSION_CODES.O)
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val imageViewModel: ImageViewModel by viewModels()
+    private val imageViewModel by viewModels<ImageViewModel>()
     private var button: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +54,12 @@ class MainActivity : AppCompatActivity() {
                         toast.show()
                     }
                 }
+
+                launch {
+                    imageViewModel.observeConfig().collect {
+                        Log.i("ACTIVITY_MAIN", it.toString())
+                    }
+                }
             }
         }
 
@@ -61,8 +68,8 @@ class MainActivity : AppCompatActivity() {
             imageViewModel.generateImage()
         }
 
-        val testButton = findViewById<Button>(R.id.button)
-        testButton.setOnClickListener {
+        val editConfigButton = findViewById<FloatingActionButton>(R.id.floatingActionButton)
+        editConfigButton.setOnClickListener {
             val frag = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
             if (supportFragmentManager.findFragmentById(R.id.fragment_container_view) == null) {
                 supportFragmentManager.commit {
