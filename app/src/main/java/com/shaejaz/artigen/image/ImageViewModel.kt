@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ImageViewModel @Inject constructor(
     private val configRepository: ConfigRepository
-): ViewModel() {
+) : ViewModel() {
 //    companion object {
 //        init {
 //            System.loadLibrary("artigen_android")
@@ -59,7 +59,7 @@ class ImageViewModel @Inject constructor(
         }
     }
 
-    fun observeConfig(): Flow<Config> {
+    fun observeConfig(): Flow<Config?> {
         return configRepository.observeConfig()
     }
 }

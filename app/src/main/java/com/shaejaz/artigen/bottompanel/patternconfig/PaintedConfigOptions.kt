@@ -1,4 +1,4 @@
-package com.shaejaz.artigen.patternconfig
+package com.shaejaz.artigen.bottompanel.patternconfig
 
 import android.os.Bundle
 import android.util.Log
@@ -32,10 +32,12 @@ class PaintedConfigOptions : Fragment() {
 
             primaryColor = it
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.setConfig(PaintedConfig(
-                    primaryColor = primaryColor!!,
-                    secondaryColor = secondaryColor!!,
-                ))
+                viewModel.setConfig(
+                    PaintedConfig(
+                        primaryColor = primaryColor!!,
+                        secondaryColor = secondaryColor!!,
+                    )
+                )
             }
         }
 
@@ -45,10 +47,12 @@ class PaintedConfigOptions : Fragment() {
 
             secondaryColor = it
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.setConfig(PaintedConfig(
-                    primaryColor = primaryColor!!,
-                    secondaryColor = secondaryColor!!,
-                ))
+                viewModel.setConfig(
+                    PaintedConfig(
+                        primaryColor = primaryColor!!,
+                        secondaryColor = secondaryColor!!,
+                    )
+                )
             }
         }
 

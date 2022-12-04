@@ -10,7 +10,16 @@ import android.view.View
 class RenderView : View {
     private val painter = Paint()
     private val numLines = 50
-    private val lineColors = arrayOf(Color.CYAN, Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.MAGENTA, Color.BLACK, Color.LTGRAY)
+    private val lineColors = arrayOf(
+        Color.CYAN,
+        Color.BLUE,
+        Color.RED,
+        Color.GREEN,
+        Color.YELLOW,
+        Color.MAGENTA,
+        Color.BLACK,
+        Color.LTGRAY
+    )
     var pixelArray: ArrayList<ArrayList<ArrayList<Int>>>? = null
 
     constructor(context: Context) : super(context)
@@ -36,7 +45,13 @@ class RenderView : View {
             val stopY = (yLowerBound..yUpperBond).random()
 
             painter.color = lineColors.random()
-            canvas?.drawLine(startX.toFloat(), startY.toFloat(), stopX.toFloat(), stopY.toFloat(), painter)
+            canvas?.drawLine(
+                startX.toFloat(),
+                startY.toFloat(),
+                stopX.toFloat(),
+                stopY.toFloat(),
+                painter
+            )
         }
 
         if (pixelArray != null) {
@@ -46,7 +61,11 @@ class RenderView : View {
             pixelArray?.forEachIndexed { idxRow, row ->
                 row.forEachIndexed { idxY, y ->
                     painter.color = Color.rgb(y[0], y[1], y[2])
-                    canvas?.drawPoint((startX + idxRow).toFloat(), (startY + idxY).toFloat(), painter)
+                    canvas?.drawPoint(
+                        (startX + idxRow).toFloat(),
+                        (startY + idxY).toFloat(),
+                        painter
+                    )
                 }
             }
         }

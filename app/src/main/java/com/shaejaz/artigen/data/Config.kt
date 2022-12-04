@@ -1,3 +1,3 @@
 package com.shaejaz.artigen.data
 
-interface Config {}
+interface Config

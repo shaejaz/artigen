@@ -2,18 +2,18 @@ package com.shaejaz.artigen.data.repositories
 
 import com.shaejaz.artigen.data.Config
 import com.shaejaz.artigen.data.Pattern
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface ConfigRepository {
-    fun observeAvailablePatterns(): Flow<List<Pattern>>
+    fun observeAvailablePatterns(): StateFlow<List<Pattern>?>
 
     suspend fun setAvailablePatterns(patterns: List<Pattern>)
 
-    fun observeConfig(): Flow<Config>
+    fun observeConfig(): StateFlow<Config?>
 
     suspend fun setConfig(config: Config)
 
-    fun observeSelectedPattern(): Flow<Pattern>
+    fun observeSelectedPattern(): StateFlow<Pattern?>
 
     suspend fun setSelectedPattern(pattern: Pattern)
 }

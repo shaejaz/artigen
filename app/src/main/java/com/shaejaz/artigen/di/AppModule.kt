@@ -12,5 +12,5 @@ import javax.inject.Singleton
 class AppModule {
     @Provides
     @Singleton
-    fun provideConfigRepository():ConfigRepository=DefaultConfigRepository()
+    fun provideConfigRepository(): ConfigRepository = DefaultConfigRepository()
 }
