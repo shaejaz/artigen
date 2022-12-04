@@ -11,7 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.shaejaz.artigen.R
-import com.shaejaz.artigen.bottompanel.patternconfig.PatternConfigFragment
+import com.shaejaz.artigen.bottompanel.patternconfigs.PatternConfigContainer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -23,20 +23,20 @@ class BottomPanel : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_bottom_panel, container, false)
+        val view = inflater.inflate(R.layout.frag_bottom_panel, container, false)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.editConfigButtonClick.collect {
-                        val frag = PatternConfigFragment()
+                        val frag = PatternConfigContainer()
                         parentFragmentManager.commit {
                             setReorderingAllowed(true)
                             replace(R.id.nested_bottom_container, frag)
                         }
                     }
                 }
-//
+
                 launch {
                     viewModel.cancelEditConfigButtonClick.collect {
                         val frag = EditPattern()

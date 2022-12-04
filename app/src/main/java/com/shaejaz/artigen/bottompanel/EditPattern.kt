@@ -18,7 +18,7 @@ class EditPattern : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_edit_pattern, container, false)
+        val view = inflater.inflate(R.layout.frag_edit_pattern, container, false)
 
         val editConfigButton = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         editConfigButton.setOnClickListener {

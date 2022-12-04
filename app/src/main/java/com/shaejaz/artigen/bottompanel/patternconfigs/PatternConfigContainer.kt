@@ -1,4 +1,4 @@
-package com.shaejaz.artigen.bottompanel.patternconfig
+package com.shaejaz.artigen.bottompanel.patternconfigs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,18 +14,18 @@ import com.shaejaz.artigen.data.Pattern
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PatternConfigFragment : Fragment() {
+class PatternConfigContainer : Fragment() {
     private val viewModel by activityViewModels<BottomPanelViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_pattern_config, container, false)
+        val view = inflater.inflate(R.layout.frag_pattern_config_container, container, false)
 
         var frag: Fragment? = when (viewModel.observeSelectedPattern().value) {
             Pattern.Painted -> {
-                PaintedConfigOptions()
+                PaintedConfig()
             }
             else -> {
                 null

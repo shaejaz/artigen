@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".bottompanel.patternconfig.PatternConfigFragment">
+    tools:context=".bottompanel.patternconfigs.PatternConfigContainer">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,10 +34,10 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_container"
-                android:name="com.shaejaz.artigen.bottompanel.patternconfig.PaintedConfigOptions"
+                android:name="com.shaejaz.artigen.bottompanel.patternconfigs.PaintedConfig"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:layout="@layout/fragment_painted_config_options" />
+                tools:layout="@layout/frag_painted_config" />
 
         </androidx.cardview.widget.CardView>
 

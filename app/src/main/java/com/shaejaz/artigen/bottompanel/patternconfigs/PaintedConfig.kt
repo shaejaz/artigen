@@ -1,4 +1,4 @@
-package com.shaejaz.artigen.bottompanel.patternconfig
+package com.shaejaz.artigen.bottompanel.patternconfigs
 
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PaintedConfigOptions : Fragment() {
+class PaintedConfig : Fragment() {
     private val viewModel by viewModels<PatternConfigViewModel>()
     private var primaryColor: String? = "#FFFFFFFF"
     private var secondaryColor: String? = "#FFFFFFFF"
@@ -24,7 +24,7 @@ class PaintedConfigOptions : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_painted_config_options, container, false)
+        val view = inflater.inflate(R.layout.frag_painted_config, container, false)
 
         val primaryColorPicker = view.findViewById<ColorPicker>(R.id.primary_color_picker)
         primaryColorPicker.setSelectedColorChangedListener {

@@ -49,6 +49,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/renderView"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout="@layout/fragment_pattern_config"/>
+        tools:layout="@layout/frag_pattern_config_container"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

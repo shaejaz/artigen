@@ -10,6 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.shaejaz.artigen.bottompanel.EditPattern"
-        tools:layout="@layout/fragment_edit_pattern" />
+        tools:layout="@layout/frag_edit_pattern" />
 
 </FrameLayout>
