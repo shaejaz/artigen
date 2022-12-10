@@ -2,6 +2,7 @@ package com.shaejaz.artigen.bottompanel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shaejaz.artigen.data.Config
 import com.shaejaz.artigen.data.Pattern
 import com.shaejaz.artigen.data.repositories.ConfigRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,5 +35,9 @@ class BottomPanelViewModel @Inject constructor(
 
     fun observeSelectedPattern(): StateFlow<Pattern?> {
         return configRepository.observeSelectedPattern()
+    }
+
+    suspend fun setConfig(config: Config) {
+        configRepository.setConfig(config)
     }
 }

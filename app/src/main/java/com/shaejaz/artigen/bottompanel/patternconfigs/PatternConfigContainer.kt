@@ -27,6 +27,9 @@ class PatternConfigContainer : Fragment() {
             Pattern.Painted -> {
                 PaintedConfig()
             }
+            Pattern.Blocks -> {
+                BlocksConfig()
+            }
             else -> {
                 null
             }

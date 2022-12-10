@@ -5,7 +5,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.shaejaz.artigen.data.Config
+import com.shaejaz.artigen.data.Pattern
 import com.shaejaz.artigen.data.repositories.ConfigRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -43,17 +45,26 @@ class ImageViewModel @Inject constructor(
     private val _imageGenerating = MutableStateFlow(false)
     val imageGenerating: StateFlow<Boolean> = _imageGenerating
 
-    private external fun generateImageJNI(): String
-    private suspend fun generateImageJNIAsync(): String {
+    private external fun generateImageJNI(pattern: String, config: String): String
+    private suspend fun generateImageJNIAsync(pattern: String, config: String): String {
         return withContext(Dispatchers.Default) {
-            return@withContext generateImageJNI()
+            return@withContext generateImageJNI(pattern, config)
         }
     }
 
     fun generateImage() {
+        val gson = Gson()
+        val config = gson.toJson(configRepository.observeConfig().value)
+
+        val pattern = when (configRepository.observeSelectedPattern().value) {
+            Pattern.Blocks -> "Blocks"
+            Pattern.Painted -> "Painted"
+            else -> ""
+        }
+
         viewModelScope.launch {
             _imageGenerating.emit(true)
-            val imageCode = generateImageJNIAsync()
+            val imageCode = generateImageJNIAsync(pattern, config)
             _imageGenerating.emit(false)
             _imageBase64String.emit(imageCode)
         }

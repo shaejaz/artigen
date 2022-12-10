@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.shaejaz.artigen.R
+import com.shaejaz.artigen.bottompanel.BottomPanelViewModel
 import com.shaejaz.artigen.data.PaintedConfig
 import com.shaejaz.artigen.utils.ColorPicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PaintedConfig : Fragment() {
-    private val viewModel by viewModels<PatternConfigViewModel>()
+    private val viewModel by viewModels<BottomPanelViewModel>()
     private var primaryColor: String? = "#FFFFFFFF"
     private var secondaryColor: String? = "#FFFFFFFF"
 
