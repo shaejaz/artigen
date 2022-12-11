@@ -8,8 +8,6 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nested_bottom_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.shaejaz.artigen.bottompanel.EditPattern"
-        tools:layout="@layout/frag_edit_pattern" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

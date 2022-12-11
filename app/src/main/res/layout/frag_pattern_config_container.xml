@@ -34,10 +34,8 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_container"
-                android:name="com.shaejaz.artigen.bottompanel.patternconfigs.PaintedConfig"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout="@layout/frag_painted_config" />
+                android:layout_height="match_parent" />
 
         </androidx.cardview.widget.CardView>
 
