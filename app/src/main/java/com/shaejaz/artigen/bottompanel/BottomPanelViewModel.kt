@@ -37,6 +37,10 @@ class BottomPanelViewModel @Inject constructor(
         return configRepository.observeSelectedPattern()
     }
 
+    fun observeConfig(): StateFlow<Config?> {
+        return configRepository.observeConfig()
+    }
+
     suspend fun setConfig(config: Config) {
         configRepository.setConfig(config)
     }

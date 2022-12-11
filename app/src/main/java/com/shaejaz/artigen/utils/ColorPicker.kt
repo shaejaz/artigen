@@ -11,7 +11,12 @@ import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 
 class ColorPicker(context: Context, attrs: AttributeSet) : View(context, attrs), OnClickListener {
-    private var selectedColor: String? = null
+    var selectedColor: String? = null
+        set(value) {
+            field = value
+            this.postInvalidate()
+        }
+
     private var paint = Paint()
     private lateinit var selectedColorChangeListener: (color: String) -> Unit
 
@@ -43,18 +48,21 @@ class ColorPicker(context: Context, attrs: AttributeSet) : View(context, attrs),
     }
 
     override fun onClick(p0: View?) {
-        ColorPickerDialog.Builder(context)
+        val view = ColorPickerDialog.Builder(context)
             .setTitle("ColorPicker Dialog")
             .setPreferenceName("MyColorPickerDialog")
             .setPositiveButton("Select", ColorEnvelopeListener { envelope, _ ->
                 selectedColor = "#${envelope.hexCode}"
                 selectedColorChangeListener(selectedColor!!)
-                this.postInvalidate()
             })
             .setNegativeButton("Cancel") { dialogInterface, _ -> dialogInterface.dismiss() }
             .attachAlphaSlideBar(false)
             .attachBrightnessSlideBar(true)
             .setBottomSpace(12)
-            .show()
+
+        if (selectedColor != null) {
+            view.colorPickerView.setInitialColor(Color.parseColor(selectedColor))
+        }
+        view.show()
     }
 }
