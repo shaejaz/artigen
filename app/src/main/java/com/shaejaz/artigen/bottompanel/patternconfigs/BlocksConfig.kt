@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.shaejaz.artigen.R
 import com.shaejaz.artigen.databinding.FragBlocksConfigBinding
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class BlocksConfig : Fragment() {
     private lateinit var binding: FragBlocksConfigBinding
-    private val viewModel by viewModels<BlocksConfigViewModel>()
+    private val viewModel by activityViewModels<BlocksConfigViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -47,6 +47,11 @@ class PatternConfigContainer : Fragment() {
             viewModel.cancelEditConfigButtonClick()
         }
 
+        val applyButton = view.findViewById<FloatingActionButton>(R.id.apply_button)
+        applyButton.setOnClickListener {
+            viewModel.applyEditConfigButtonClick()
+        }
+
         return view
     }
 }

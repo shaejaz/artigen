@@ -12,7 +12,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.shaejaz.artigen.R
+import com.shaejaz.artigen.bottompanel.patternconfigs.BlocksConfigViewModel
 import com.shaejaz.artigen.bottompanel.patternconfigs.PatternConfigContainer
+import com.shaejaz.artigen.data.Pattern
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -45,6 +47,24 @@ class BottomPanel : Fragment() {
 
                 launch {
                     viewModel.cancelEditConfigButtonClick.collect {
+                        val frag = EditPattern()
+                        parentFragmentManager.commit {
+                            setReorderingAllowed(true)
+                            replace(R.id.nested_bottom_container, frag)
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.applyEditConfigButtonClick.collect {
+                        when (viewModel.observeSelectedPattern().value) {
+                            Pattern.Blocks -> {
+                                val blocksViewModel by activityViewModels<BlocksConfigViewModel>()
+                                blocksViewModel.saveConfig()
+                            }
+                            else -> { }
+                        }
+
                         val frag = EditPattern()
                         parentFragmentManager.commit {
                             setReorderingAllowed(true)

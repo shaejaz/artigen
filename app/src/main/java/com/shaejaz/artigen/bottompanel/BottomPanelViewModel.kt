@@ -20,6 +20,8 @@ class BottomPanelViewModel @Inject constructor(
     val editConfigButtonClick = _editConfigButtonClick.asSharedFlow()
     private val _cancelEditConfigButtonClick = MutableSharedFlow<Unit>()
     val cancelEditConfigButtonClick = _cancelEditConfigButtonClick.asSharedFlow()
+    private val _applyEditConfigButtonClick = MutableSharedFlow<Unit>()
+    val applyEditConfigButtonClick = _applyEditConfigButtonClick.asSharedFlow()
 
     fun editConfigButtonClick() {
         viewModelScope.launch {
@@ -30,6 +32,12 @@ class BottomPanelViewModel @Inject constructor(
     fun cancelEditConfigButtonClick() {
         viewModelScope.launch {
             _cancelEditConfigButtonClick.emit(Unit)
+        }
+    }
+
+    fun applyEditConfigButtonClick() {
+        viewModelScope.launch {
+            _applyEditConfigButtonClick.emit(Unit)
         }
     }
 

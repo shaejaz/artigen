@@ -20,16 +20,6 @@ class BlocksConfigViewModel @Inject constructor(
     val lineSize = MutableStateFlow("2")
     val density = MutableStateFlow("1.0")
 
-    init {
-        viewModelScope.launch { color1.collect { saveConfig() } }
-        viewModelScope.launch { color2.collect { saveConfig() } }
-        viewModelScope.launch { color3.collect { saveConfig() } }
-        viewModelScope.launch { bgColor.collect { saveConfig() } }
-        viewModelScope.launch { blockSize.collect { saveConfig() } }
-        viewModelScope.launch { lineSize.collect { saveConfig() } }
-        viewModelScope.launch { density.collect { saveConfig() } }
-    }
-
     fun saveConfig() {
         if (blockSize.value != "" && lineSize.value != "" && density.value != "") {
             val config = com.shaejaz.artigen.data.BlocksConfig(
