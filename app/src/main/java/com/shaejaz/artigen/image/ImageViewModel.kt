@@ -22,11 +22,11 @@ import javax.inject.Inject
 class ImageViewModel @Inject constructor(
     private val configRepository: ConfigRepository
 ) : ViewModel() {
-//    companion object {
-//        init {
-//            System.loadLibrary("artigen_android")
-//        }
-//    }
+    companion object {
+        init {
+            System.loadLibrary("artigen_android")
+        }
+    }
 
     private val decoder = Base64.getDecoder()
 

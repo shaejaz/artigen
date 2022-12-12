@@ -1,6 +1,6 @@
 extern crate jni;
 
-use artigen::patterns::{julia, Pattern};
+use artigen::patterns::{julia, Pattern, blocks, from_json_str};
 use artigen::output::base64;
 
 use jni::JNIEnv;
@@ -28,9 +28,25 @@ fn generate_image() -> String {
 pub extern "C" fn Java_com_shaejaz_artigen_image_ImageViewModel_generateImageJNI(
     env: JNIEnv,
     _class: JClass,
+    pattern: JString,
+    config: JString,
 ) -> jstring {
-    let img = generate_image();
+    let o_pattern: String = env.get_string(pattern).expect("TEST").into();
+    let o_config: String = env.get_string(config).expect("TEST").into();
 
-    let s = env.new_string(img).expect("TEST");
+    let mut img_str = String::from("");
+
+    if o_pattern == "Blocks" {
+        let config_deserilized: blocks::BlocksConfig = from_json_str(&o_config).expect("TEST");
+
+        let blocks_pattern = blocks::Blocks {
+            config: config_deserilized
+        };
+
+        let img = blocks_pattern.generate();
+        img_str = base64::generate_from_image(img);
+    }
+
+    let s = env.new_string(img_str).expect("TEST");
     s.into_raw()
 }

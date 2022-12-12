@@ -13,10 +13,10 @@ import javax.inject.Inject
 class BlocksConfigViewModel @Inject constructor(
     private val configRepository: ConfigRepository
 ) : ViewModel() {
-    val color1 = MutableStateFlow("#5e062b")
-    val color2 = MutableStateFlow("#171585")
-    val color3 = MutableStateFlow("#b8cf38")
-    val bgColor = MutableStateFlow("#ffffff")
+    val color1 = MutableStateFlow("5e062b")
+    val color2 = MutableStateFlow("171585")
+    val color3 = MutableStateFlow("b8cf38")
+    val bgColor = MutableStateFlow("ffffff")
     val blockSize = MutableStateFlow("2")
     val lineSize = MutableStateFlow("2")
     val density = MutableStateFlow("1.0")
@@ -25,12 +25,17 @@ class BlocksConfigViewModel @Inject constructor(
         if (blockSize.value != "" && lineSize.value != "" && density.value != "") {
             val display = DisplayMetrics()
 
+            val cleanedColor1 = cleanColor(color1.value)
+            val cleanedColor2 = cleanColor(color2.value)
+            val cleanedColor3 = cleanColor(color3.value)
+            val cleanedBgColor = cleanColor(bgColor.value)
+
             val config = com.shaejaz.artigen.data.BlocksConfig(
                 x = display.widthPixels, y = display.heightPixels,
-                color1 = color1.value,
-                color2 = color2.value,
-                color3 = color3.value,
-                bgColor = bgColor.value,
+                color1 = cleanedColor1,
+                color2 = cleanedColor2,
+                color3 = cleanedColor3,
+                bgColor = cleanedBgColor,
                 blockSize = blockSize.value.toInt(),
                 lineSize = lineSize.value.toInt(),
                 density = density.value.toFloat(),
@@ -40,5 +45,16 @@ class BlocksConfigViewModel @Inject constructor(
                 configRepository.setConfig(config)
             }
         }
+    }
+
+    fun cleanColor(color: String): String {
+        var newColor = ""
+        if (color.length > 6) {
+            newColor = color.removePrefix("#")
+            if (newColor.length > 6) {
+                newColor = newColor.removePrefix("FF")
+            }
+        }
+        return newColor
     }
 }

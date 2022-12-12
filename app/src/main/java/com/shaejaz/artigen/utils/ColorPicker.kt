@@ -30,6 +30,9 @@ class ColorPicker(context: Context, attrs: AttributeSet) : View(context, attrs),
         val color = if (selectedColor == null) {
             Color.WHITE
         } else {
+            if (!selectedColor!!.startsWith("#")) {
+                selectedColor = "#$selectedColor"
+            }
             Color.parseColor(selectedColor)
         }
 
