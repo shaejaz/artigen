@@ -70,6 +70,16 @@ class ImageViewModel @Inject constructor(
         }
     }
 
+    fun setDeviceXY(x: Int, y: Int) {
+        configRepository.setDeviceXY(x, y)
+    }
+
+    fun setConfig(config: Config) {
+        viewModelScope.launch {
+            configRepository.setConfig(config)
+        }
+    }
+
     fun observeConfig(): Flow<Config?> {
         return configRepository.observeConfig()
     }

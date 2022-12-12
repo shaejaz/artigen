@@ -35,6 +35,7 @@ class PaintedConfig : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.setConfig(
                     PaintedConfig(
+                        x = 0, y = 0,
                         primaryColor = primaryColor!!,
                         secondaryColor = secondaryColor!!,
                     )
@@ -50,6 +51,7 @@ class PaintedConfig : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.setConfig(
                     PaintedConfig(
+                        x = 0, y = 0,
                         primaryColor = primaryColor!!,
                         secondaryColor = secondaryColor!!,
                     )

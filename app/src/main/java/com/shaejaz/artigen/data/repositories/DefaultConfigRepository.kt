@@ -1,5 +1,7 @@
 package com.shaejaz.artigen.data.repositories
 
+import android.util.DisplayMetrics
+import com.shaejaz.artigen.data.BlocksConfig
 import com.shaejaz.artigen.data.Config
 import com.shaejaz.artigen.data.Pattern
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +16,14 @@ class DefaultConfigRepository : ConfigRepository {
     private val _config = MutableStateFlow<Config?>(null)
     private val _selectPattern = MutableStateFlow<Pattern?>(Pattern.Blocks)
 
+    private var _x = 0
+    private var _y = 0
+
+    override fun setDeviceXY(x: Int, y: Int) {
+        _x = x
+        _y = y
+    }
+
     override fun observeAvailablePatterns(): StateFlow<List<String>> {
         return _availablePatterns.asStateFlow()
     }
@@ -27,6 +37,8 @@ class DefaultConfigRepository : ConfigRepository {
     }
 
     override suspend fun setConfig(config: Config) {
+        config.x = _x
+        config.y = _y
         _config.emit(config)
     }
 

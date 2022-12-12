@@ -5,6 +5,8 @@ import com.shaejaz.artigen.data.Pattern
 import kotlinx.coroutines.flow.StateFlow
 
 interface ConfigRepository {
+    fun setDeviceXY(x: Int, y: Int)
+
     fun observeAvailablePatterns(): StateFlow<List<String>>
 
     suspend fun setAvailablePatterns(patterns: List<String>)

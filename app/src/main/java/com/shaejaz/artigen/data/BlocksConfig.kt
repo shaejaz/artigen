@@ -1,8 +1,8 @@
 package com.shaejaz.artigen.data
 
 data class BlocksConfig(
-    var x: Int,
-    var y: Int,
+    override var x: Int,
+    override var y: Int,
     var color1: String,
     var color2: String,
     var color3: String,

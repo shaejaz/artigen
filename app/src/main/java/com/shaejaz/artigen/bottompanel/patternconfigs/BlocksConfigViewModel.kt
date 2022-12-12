@@ -1,5 +1,6 @@
 package com.shaejaz.artigen.bottompanel.patternconfigs
 
+import android.util.DisplayMetrics
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shaejaz.artigen.data.repositories.ConfigRepository
@@ -22,8 +23,10 @@ class BlocksConfigViewModel @Inject constructor(
 
     fun saveConfig() {
         if (blockSize.value != "" && lineSize.value != "" && density.value != "") {
+            val display = DisplayMetrics()
+
             val config = com.shaejaz.artigen.data.BlocksConfig(
-                x = 0, y = 0,
+                x = display.widthPixels, y = display.heightPixels,
                 color1 = color1.value,
                 color2 = color2.value,
                 color3 = color3.value,

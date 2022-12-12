@@ -1,3 +1,6 @@
 package com.shaejaz.artigen.data
 
-interface Config
+interface Config {
+    var x: Int
+    var y: Int
+}

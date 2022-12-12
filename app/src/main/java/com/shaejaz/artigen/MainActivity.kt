@@ -1,7 +1,9 @@
 package com.shaejaz.artigen
 
+import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
@@ -14,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.shaejaz.artigen.bottompanel.BottomPanel
+import com.shaejaz.artigen.data.BlocksConfig
 import com.shaejaz.artigen.image.ImageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -35,6 +38,23 @@ class MainActivity : AppCompatActivity() {
             setReorderingAllowed(true)
             add<BottomPanel>(R.id.bottom_container)
         }
+
+        val size = Point()
+        windowManager.defaultDisplay.getRealSize(size)
+        imageViewModel.setDeviceXY(size.x, size.y)
+
+        imageViewModel.setConfig(
+            BlocksConfig(
+            x = size.x,
+            y = size.y,
+            color1 = "#5e062b",
+            color2 = "#171585",
+            color3 = "#b8cf38",
+            bgColor = "#ffffff",
+            blockSize = 2,
+            lineSize = 2,
+            density = 1.0f,
+        ))
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
