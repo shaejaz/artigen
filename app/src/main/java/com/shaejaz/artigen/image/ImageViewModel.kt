@@ -11,6 +11,7 @@ import com.shaejaz.artigen.data.Pattern
 import com.shaejaz.artigen.data.repositories.ConfigRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,6 +29,7 @@ class ImageViewModel @Inject constructor(
         }
     }
 
+    private var generationJob: Job? = null
     private val decoder = Base64.getDecoder()
 
     private val _imageBase64String = MutableStateFlow<String?>(null)
@@ -42,8 +44,8 @@ class ImageViewModel @Inject constructor(
         return@map BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
     }
 
-    private val _imageGenerating = MutableStateFlow(false)
-    val imageGenerating: StateFlow<Boolean> = _imageGenerating
+    private val _imageGenerating = MutableSharedFlow<Boolean>()
+    val imageGenerating: SharedFlow<Boolean> = _imageGenerating.asSharedFlow()
 
     private external fun generateImageJNI(pattern: String, config: String): String
     private suspend fun generateImageJNIAsync(pattern: String, config: String): String {
@@ -62,11 +64,17 @@ class ImageViewModel @Inject constructor(
             else -> ""
         }
 
-        viewModelScope.launch {
+        generationJob = viewModelScope.launch {
             _imageGenerating.emit(true)
             val imageCode = generateImageJNIAsync(pattern, config)
             _imageGenerating.emit(false)
             _imageBase64String.emit(imageCode)
+        }
+    }
+
+    fun cancelGenerateImage() {
+        if (generationJob != null) {
+            generationJob!!.cancel()
         }
     }
 

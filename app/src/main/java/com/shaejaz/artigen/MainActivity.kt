@@ -1,12 +1,12 @@
 package com.shaejaz.artigen
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -15,11 +15,11 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.shaejaz.artigen.bottompanel.BottomPanel
 import com.shaejaz.artigen.data.BlocksConfig
 import com.shaejaz.artigen.image.ImageViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 
@@ -27,6 +27,37 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val imageViewModel by viewModels<ImageViewModel>()
+    private var progressDialog: AlertDialog? = null
+
+    fun createLoadingDialog() {
+        val b = AlertDialog.Builder(this@MainActivity)
+        b.setMessage("Generating...")
+        b.setCancelable(false)
+        b.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+            imageViewModel.cancelGenerateImage()
+        }
+        progressDialog = b.create()
+    }
+
+    fun setInitialConfigData() {
+        val size = Point()
+        windowManager.defaultDisplay.getRealSize(size)
+        imageViewModel.setDeviceXY(size.x, size.y)
+
+        imageViewModel.setConfig(
+            BlocksConfig(
+                x = size.x,
+                y = size.y,
+                color1 = "5e062b",
+                color2 = "171585",
+                color3 = "b8cf38",
+                bgColor = "ffffff",
+                blockSize = 2,
+                lineSize = 2,
+                density = 1.0f,
+            ))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,22 +70,8 @@ class MainActivity : AppCompatActivity() {
             add<BottomPanel>(R.id.bottom_container)
         }
 
-        val size = Point()
-        windowManager.defaultDisplay.getRealSize(size)
-        imageViewModel.setDeviceXY(size.x, size.y)
-
-        imageViewModel.setConfig(
-            BlocksConfig(
-            x = size.x,
-            y = size.y,
-            color1 = "5e062b",
-            color2 = "171585",
-            color3 = "b8cf38",
-            bgColor = "ffffff",
-            blockSize = 2,
-            lineSize = 2,
-            density = 1.0f,
-        ))
+        createLoadingDialog()
+        setInitialConfigData()
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -65,23 +82,16 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 launch {
-                    imageViewModel.imageGenerating.drop(1).collect { generating ->
-                        var toast: Toast
+                    imageViewModel.imageGenerating.collect { generating ->
                         if (generating) {
-                            toast = Toast.makeText(
-                                this@MainActivity,
-                                "Image has started generating",
-                                Toast.LENGTH_LONG
-                            )
+                            if (!progressDialog!!.isShowing) {
+                                progressDialog!!.show()
+                            }
                         } else {
-                            toast = Toast.makeText(
-                                this@MainActivity,
-                                "Image generation finished",
-                                Toast.LENGTH_SHORT
-                            )
+                            if (progressDialog != null && progressDialog!!.isShowing) {
+                                progressDialog!!.dismiss()
+                            }
                         }
-
-                        toast.show()
                     }
                 }
 

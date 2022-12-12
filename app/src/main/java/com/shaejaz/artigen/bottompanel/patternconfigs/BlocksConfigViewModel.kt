@@ -54,7 +54,10 @@ class BlocksConfigViewModel @Inject constructor(
             if (newColor.length > 6) {
                 newColor = newColor.removePrefix("FF")
             }
+
+            return newColor
+        } else {
+            return color
         }
-        return newColor
     }
 }
