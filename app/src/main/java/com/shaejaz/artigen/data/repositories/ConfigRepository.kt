@@ -5,9 +5,9 @@ import com.shaejaz.artigen.data.Pattern
 import kotlinx.coroutines.flow.StateFlow
 
 interface ConfigRepository {
-    fun observeAvailablePatterns(): StateFlow<List<Pattern>?>
+    fun observeAvailablePatterns(): StateFlow<List<String>>
 
-    suspend fun setAvailablePatterns(patterns: List<Pattern>)
+    suspend fun setAvailablePatterns(patterns: List<String>)
 
     fun observeConfig(): StateFlow<Config?>
 

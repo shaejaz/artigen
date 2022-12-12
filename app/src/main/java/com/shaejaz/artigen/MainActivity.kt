@@ -16,6 +16,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.shaejaz.artigen.bottompanel.BottomPanel
 import com.shaejaz.artigen.image.ImageViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 
@@ -66,6 +67,12 @@ class MainActivity : AppCompatActivity() {
 
                 launch {
                     imageViewModel.observeConfig().collect {
+                        Log.i("ACTIVITY_MAIN", it.toString())
+                    }
+                }
+
+                launch {
+                    imageViewModel.observeSelectedPattern().collect {
                         Log.i("ACTIVITY_MAIN", it.toString())
                     }
                 }

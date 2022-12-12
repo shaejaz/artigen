@@ -73,4 +73,8 @@ class ImageViewModel @Inject constructor(
     fun observeConfig(): Flow<Config?> {
         return configRepository.observeConfig()
     }
+
+    fun observeSelectedPattern(): StateFlow<Pattern?> {
+        return configRepository.observeSelectedPattern()
+    }
 }
