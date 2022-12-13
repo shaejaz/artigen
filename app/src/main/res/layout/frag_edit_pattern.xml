@@ -25,13 +25,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="26dp"
                 android:clickable="true"
-                android:contentDescription="@string/app_name"
                 android:focusable="true"
                 android:src="@drawable/ic_baseline_edit_24"
-                app:backgroundTint="@color/purple_200"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/edit_pattern_btn_desc" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/generate_pattern_button"
@@ -39,13 +39,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:clickable="true"
-                android:contentDescription="@string/app_name"
                 android:focusable="true"
                 android:src="@drawable/ic_baseline_auto_awesome_24"
-                app:backgroundTint="@color/purple_200"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/edit_pattern_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/generate_pattern_btn_desc" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linearLayoutCompat"
@@ -63,11 +63,11 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="10dp"
                     android:clickable="true"
-                    android:contentDescription="@string/app_name"
                     android:focusable="true"
                     android:src="@drawable/ic_baseline_wallpaper_24"
+                    app:tint="@color/white"
                     android:visibility="@{viewmodel.showApplyWallpaperButton ? View.VISIBLE : View.GONE}"
-                    app:backgroundTint="@color/purple_200" />
+                    android:contentDescription="@string/apply_patten_wallpaper_btn_desc" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/share_button"
@@ -76,11 +76,11 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginBottom="10dp"
                     android:clickable="true"
-                    android:contentDescription="@string/app_name"
                     android:focusable="true"
                     android:src="@drawable/ic_baseline_share_24"
+                    app:tint="@color/white"
                     android:visibility="@{viewmodel.showApplyWallpaperButton ? View.VISIBLE : View.GONE}"
-                    app:backgroundTint="@color/purple_200" />
+                    android:contentDescription="@string/share_pattern_btn_desc" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>

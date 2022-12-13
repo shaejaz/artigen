@@ -16,11 +16,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@color/white"
+            app:boxBackgroundColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            <AutoCompleteTextView
                 android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -28,6 +29,7 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:textColor="@color/black"
+                android:background="@null"
                 android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>

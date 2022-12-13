@@ -97,7 +97,6 @@ class BottomPanelViewModel @Inject constructor(
 
         } catch (e: IOException) {
             uri?.let { orphanUri ->
-                // Don't leave an orphan entry in the MediaStore
                 resolver.delete(orphanUri, null, null)
             }
 
