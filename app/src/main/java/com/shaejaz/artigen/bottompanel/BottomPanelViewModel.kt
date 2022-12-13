@@ -1,5 +1,6 @@
 package com.shaejaz.artigen.bottompanel
 
+import android.transition.Visibility
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shaejaz.artigen.data.Config
@@ -7,6 +8,7 @@ import com.shaejaz.artigen.data.Pattern
 import com.shaejaz.artigen.data.repositories.ConfigRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -22,6 +24,7 @@ class BottomPanelViewModel @Inject constructor(
     val cancelEditConfigButtonClick = _cancelEditConfigButtonClick.asSharedFlow()
     private val _applyEditConfigButtonClick = MutableSharedFlow<Unit>()
     val applyEditConfigButtonClick = _applyEditConfigButtonClick.asSharedFlow()
+    val showApplyWallpaperButton = MutableStateFlow(false)
 
     fun editConfigButtonClick() {
         viewModelScope.launch {

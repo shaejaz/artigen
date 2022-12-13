@@ -1,6 +1,7 @@
 package com.shaejaz.artigen
 
 import android.app.AlertDialog
+import android.app.WallpaperManager
 import android.content.DialogInterface
 import android.graphics.Point
 import android.os.Build
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private val imageViewModel by viewModels<ImageViewModel>()
     private var progressDialog: AlertDialog? = null
 
-    fun createLoadingDialog() {
+    private fun createLoadingDialog() {
         val b = AlertDialog.Builder(this@MainActivity)
         b.setMessage("Generating...")
         b.setCancelable(false)
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         progressDialog = b.create()
     }
 
-    fun setInitialConfigData() {
+    private fun setInitialConfigData() {
         val size = Point()
         windowManager.defaultDisplay.getRealSize(size)
         imageViewModel.setDeviceXY(size.x, size.y)
@@ -78,6 +79,11 @@ class MainActivity : AppCompatActivity() {
                 launch {
                     imageViewModel.image.collect {
                         imageView.setImageBitmap(it)
+                        val config = imageViewModel.observeConfig().value
+                        if (config != null) {
+                            imageView.layoutParams.height = config.y
+                            imageView.layoutParams.width = config.x
+                        }
                     }
                 }
 

@@ -42,7 +42,7 @@ class ImageViewModel @Inject constructor(
 
         val bytes = decoder.decode(it)
         return@map BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-    }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
     private val _imageGenerating = MutableSharedFlow<Boolean>()
     val imageGenerating: SharedFlow<Boolean> = _imageGenerating.asSharedFlow()
@@ -88,7 +88,7 @@ class ImageViewModel @Inject constructor(
         }
     }
 
-    fun observeConfig(): Flow<Config?> {
+    fun observeConfig(): StateFlow<Config?> {
         return configRepository.observeConfig()
     }
 
