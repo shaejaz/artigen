@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.mozilla.rust-android-gradle.rust-android'
+//    id 'org.mozilla.rust-android-gradle.rust-android'
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -40,15 +40,23 @@ android {
         jvmTarget = '1.8'
     }
 
+    sourceSets {
+        main {
+            jniLibs {
+                srcDir 'src/main/libs'
+            }
+        }
+    }
+
     ndkVersion "25.1.8937393"
 }
 
-cargo {
-    module  = "../lib/"
-    libname = "artigen_android"
-    targets = ["arm64", "x86", "arm"]
-    prebuiltToolchains = true
-}
+//cargo {
+//    module  = "../lib/"
+//    libname = "artigen_android"
+//    targets = ["arm64", "x86", "arm", "x86_64"]
+//    prebuiltToolchains = true
+//}
 
 dependencies {
 
@@ -75,4 +83,4 @@ kapt {
     correctErrorTypes = true
 }
 
-preBuild.dependsOn "cargoBuild"
+//preBuild.dependsOn "cargoBuild"
