@@ -2,15 +2,21 @@ package com.shaejaz.artigen
 
 import android.app.AlertDialog
 import android.app.WallpaperManager
+import android.content.ContentResolver
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Point
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
@@ -18,16 +24,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.shaejaz.artigen.bottompanel.BottomPanel
+import com.shaejaz.artigen.bottompanel.BottomPanelViewModel
 import com.shaejaz.artigen.data.BlocksConfig
 import com.shaejaz.artigen.image.ImageViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val imageViewModel by viewModels<ImageViewModel>()
+    private val bottomPanelViewModel by viewModels<BottomPanelViewModel>()
     private var progressDialog: AlertDialog? = null
 
     private fun createLoadingDialog() {
@@ -102,14 +113,29 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 launch {
-                    imageViewModel.observeConfig().collect {
-                        Log.i("ACTIVITY_MAIN", it.toString())
-                    }
-                }
+                    bottomPanelViewModel.shareButtonClick.collect {
+                        val image = imageViewModel.image.value
 
-                launch {
-                    imageViewModel.observeSelectedPattern().collect {
-                        Log.i("ACTIVITY_MAIN", it.toString())
+                        if (image != null) {
+                            val d = Calendar.getInstance().time
+                            val formatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
+                            val filename = formatter.format(d)
+
+                            val uri = bottomPanelViewModel.saveBitmap(
+                                this@MainActivity,
+                                image,
+                                Bitmap.CompressFormat.PNG,
+                                "image/png",
+                                filename
+                            )
+
+                            val shareIntent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_STREAM, uri)
+                                type = "image/png"
+                            }
+                            startActivity(Intent.createChooser(shareIntent, null))
+                        }
                     }
                 }
             }
