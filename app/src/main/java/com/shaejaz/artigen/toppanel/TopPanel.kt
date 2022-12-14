@@ -1,6 +1,7 @@
 package com.shaejaz.artigen.toppanel
 
 import android.annotation.SuppressLint
+import android.app.ActionBar.LayoutParams
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,14 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.textfield.TextInputLayout
 import com.shaejaz.artigen.R
 import com.shaejaz.artigen.data.Pattern
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -52,6 +58,15 @@ class TopPanel : Fragment() {
                     else -> Pattern.Blocks
                 })
             }
+
+        val textInputView = view.findViewById<TextInputLayout>(R.id.text_input_layout)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.enablePatternSelectMenu.collect {
+                    textInputView.isEnabled = it
+                }
+            }
+        }
 
         // Inflate the layout for this fragment
         return view

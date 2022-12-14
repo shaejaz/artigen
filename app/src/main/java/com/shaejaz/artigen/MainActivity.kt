@@ -27,6 +27,7 @@ import com.shaejaz.artigen.bottompanel.BottomPanel
 import com.shaejaz.artigen.bottompanel.BottomPanelViewModel
 import com.shaejaz.artigen.data.BlocksConfig
 import com.shaejaz.artigen.image.ImageViewModel
+import com.shaejaz.artigen.toppanel.TopPanelViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
@@ -39,6 +40,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private val imageViewModel by viewModels<ImageViewModel>()
     private val bottomPanelViewModel by viewModels<BottomPanelViewModel>()
+    private val topPanelViewModel by viewModels<TopPanelViewModel>()
     private var progressDialog: AlertDialog? = null
 
     private fun createLoadingDialog() {
@@ -136,6 +138,24 @@ class MainActivity : AppCompatActivity() {
                             }
                             startActivity(Intent.createChooser(shareIntent, null))
                         }
+                    }
+                }
+
+                launch {
+                    bottomPanelViewModel.editConfigButtonClick.collect {
+                        topPanelViewModel.enablePatternSelectMenu.emit(false)
+                    }
+                }
+
+                launch {
+                    bottomPanelViewModel.cancelEditConfigButtonClick.collect {
+                        topPanelViewModel.enablePatternSelectMenu.emit(true)
+                    }
+                }
+
+                launch {
+                    bottomPanelViewModel.applyEditConfigButtonClick.collect {
+                        topPanelViewModel.enablePatternSelectMenu.emit(true)
                     }
                 }
             }

@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.shaejaz.artigen.R
 import com.shaejaz.artigen.bottompanel.BottomPanelViewModel
 import com.shaejaz.artigen.data.Pattern
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PatternConfigContainer : Fragment() {
@@ -50,6 +55,14 @@ class PatternConfigContainer : Fragment() {
         val applyButton = view.findViewById<FloatingActionButton>(R.id.apply_button)
         applyButton.setOnClickListener {
             viewModel.applyEditConfigButtonClick()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.enableConfirmConfigButton.collect {
+                    applyButton.isEnabled = it
+                }
+            }
         }
 
         return view

@@ -6,17 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.shaejaz.artigen.R
+import com.shaejaz.artigen.bottompanel.BottomPanelViewModel
 import com.shaejaz.artigen.databinding.FragBlocksConfigBinding
 import com.shaejaz.artigen.utils.NumberFilter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BlocksConfig : Fragment() {
     private lateinit var binding: FragBlocksConfigBinding
     private val viewModel by activityViewModels<BlocksConfigViewModel>()
+    private val bottomPanelViewModel by activityViewModels<BottomPanelViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +62,22 @@ class BlocksConfig : Fragment() {
         binding.bgColorPicker.setSelectedColorChangedListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.bgColor.emit(it)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                merge(
+                    viewModel.blockSize,
+                    viewModel.lineSize,
+                    viewModel.density
+                ).collect {
+                    if (viewModel.blockSize.value == "" || viewModel.lineSize.value == "" || viewModel.density.value == "") {
+                        bottomPanelViewModel.enableConfirmConfigButton.emit(false)
+                    } else {
+                        bottomPanelViewModel.enableConfirmConfigButton.emit(true)
+                    }
+                }
             }
         }
 

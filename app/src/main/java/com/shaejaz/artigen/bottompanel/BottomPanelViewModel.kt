@@ -31,9 +31,11 @@ class BottomPanelViewModel @Inject constructor(
     val cancelEditConfigButtonClick = _cancelEditConfigButtonClick.asSharedFlow()
     private val _applyEditConfigButtonClick = MutableSharedFlow<Unit>()
     val applyEditConfigButtonClick = _applyEditConfigButtonClick.asSharedFlow()
-    val showApplyWallpaperButton = MutableStateFlow(false)
     private val _shareButtonClick = MutableSharedFlow<Unit>()
     val shareButtonClick = _shareButtonClick.asSharedFlow()
+
+    val showApplyWallpaperButton = MutableStateFlow(false)
+    val enableConfirmConfigButton = MutableStateFlow(true)
 
     fun editConfigButtonClick() {
         viewModelScope.launch {
