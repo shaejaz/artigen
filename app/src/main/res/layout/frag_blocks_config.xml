@@ -27,6 +27,7 @@
 
                 <TextView
                     android:id="@+id/color1_text"
+                    style="@style/TextViewTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -40,7 +41,6 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="10dp"
-                    android:contentDescription="@string/app_name"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -55,6 +55,7 @@
 
                 <TextView
                     android:id="@+id/color2_text"
+                    style="@style/TextViewTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -68,7 +69,6 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="10dp"
-                    android:contentDescription="@string/app_name"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -82,6 +82,7 @@
 
                 <TextView
                     android:id="@+id/color3_text"
+                    style="@style/TextViewTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -95,7 +96,6 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="10dp"
-                    android:contentDescription="@string/app_name"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -109,6 +109,7 @@
 
                 <TextView
                     android:id="@+id/bg_color_text"
+                    style="@style/TextViewTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -122,7 +123,6 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="10dp"
-                    android:contentDescription="@string/app_name"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -136,6 +136,7 @@
 
                 <TextView
                     android:id="@+id/block_size_text"
+                    style="@style/TextViewTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -149,7 +150,6 @@
                     android:layout_width="80dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="10dp"
-                    android:hint="@string/app_name"
                     android:inputType="number"
                     android:text="@={viewmodel.blockSize}"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -165,6 +165,7 @@
 
                 <TextView
                     android:id="@+id/line_size_text"
+                    style="@style/TextViewTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -178,7 +179,6 @@
                     android:layout_width="80dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="10dp"
-                    android:hint="@string/app_name"
                     android:inputType="number"
                     android:text="@={viewmodel.lineSize}"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -194,6 +194,7 @@
 
                 <TextView
                     android:id="@+id/density_text"
+                    style="@style/TextViewTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -207,7 +208,6 @@
                     android:layout_width="80dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="10dp"
-                    android:hint="@string/app_name"
                     android:inputType="numberDecimal"
                     android:text="@={viewmodel.density}"
                     app:layout_constraintBottom_toBottomOf="parent"

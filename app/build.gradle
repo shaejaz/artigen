@@ -46,7 +46,7 @@ android {
 cargo {
     module  = "../lib/"
     libname = "artigen_android"
-    targets = ["arm64", "x86", "arm"]
+    targets = ["arm64", "x86", "x86_64", "arm"]
     prebuiltToolchains = true
 }
 
