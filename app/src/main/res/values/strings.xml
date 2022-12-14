@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">Artigen</string>
-
-    <string-array name="programming_languages">
-        <item>Java</item>
-        <item>Kotlin</item>
-        <item>Python</item>
-        <item>CPP</item>
-    </string-array>
+    <string name="generated_image_view_description">Generated Image</string>
+    <string name="color1_textview">Color 1</string>
+    <string name="color2_textview">Color 2</string>
+    <string name="color3_textview">Color 3</string>
+    <string name="bgcolor_textview">Background Color</string>
+    <string name="block_size_textview">Block Size</string>
+    <string name="line_size_textview">Line Size</string>
+    <string name="density_textview">Density</string>
+    <string name="edit_pattern_btn_desc">Edit selected pattern config</string>
+    <string name="generate_pattern_btn_desc">Generate selected pattern</string>
+    <string name="apply_patten_wallpaper_btn_desc">Apply generated pattern as wallpaper</string>
+    <string name="share_pattern_btn_desc">Share generated pattern</string>
+    <string name="cancel_edit_pattern_config_btn_desc">Cancel changes to pattern config</string>
+    <string name="apply_pattern_config_btn_desc">Apply changes to pattern config</string>
+    <string name="min_textview">Min Fractals</string>
+    <string name="max_textview">Max Fractals</string>
 </resources>

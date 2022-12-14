@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class DefaultConfigRepository : ConfigRepository {
     private val _availablePatterns = MutableStateFlow(listOf(
         "Blocks",
-        "Painted"
+        "Julia"
     ))
     private val _config = MutableStateFlow<Config?>(null)
     private val _selectPattern = MutableStateFlow<Pattern?>(Pattern.Blocks)

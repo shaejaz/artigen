@@ -61,6 +61,10 @@ class EditPattern : Fragment() {
             }
         }
 
+        binding.shareButton.setOnClickListener {
+            viewModel.shareButtonClick()
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 imageViewModel.imageBase64String.collect {

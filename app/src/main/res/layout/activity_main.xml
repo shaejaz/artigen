@@ -25,7 +25,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:name="com.shaejaz.artigen.toppanel.TopPanel"
-        tools:layout="@layout/frag_top_panel" />
+        tools:layout="@layout/frag_top_panel"
+        android:elevation="100dp" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -34,7 +35,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/generated_image_view_description" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/bottom_container"

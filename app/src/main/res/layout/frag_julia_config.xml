@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.shaejaz.artigen.bottompanel.patternconfigs.BlocksConfigViewModel" />
+            type="com.shaejaz.artigen.bottompanel.patternconfigs.JuliaConfigViewModel" />
     </data>
 
     <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -135,23 +135,23 @@
                 android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:id="@+id/block_size_text"
+                    android:id="@+id/min_text"
                     style="@style/TextViewTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@string/block_size_textview"
+                    android:text="@string/min_textview"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/block_size_field"
+                    android:id="@+id/min_field"
                     android:layout_width="80dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="10dp"
                     android:inputType="number"
-                    android:text="@={viewmodel.blockSize}"
+                    android:text="@={viewmodel.min}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -164,52 +164,23 @@
                 android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:id="@+id/line_size_text"
+                    android:id="@+id/max_text"
                     style="@style/TextViewTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@string/line_size_textview"
+                    android:text="@string/max_textview"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/line_size_field"
+                    android:id="@+id/max_field"
                     android:layout_width="80dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="10dp"
                     android:inputType="number"
-                    android:text="@={viewmodel.lineSize}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:id="@+id/density_text"
-                    style="@style/TextViewTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/density_textview"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/density_field"
-                    android:layout_width="80dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="10dp"
-                    android:inputType="numberDecimal"
-                    android:text="@={viewmodel.density}"
+                    android:text="@={viewmodel.max}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

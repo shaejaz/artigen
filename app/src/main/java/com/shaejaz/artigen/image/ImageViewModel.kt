@@ -60,7 +60,7 @@ class ImageViewModel @Inject constructor(
 
         val pattern = when (configRepository.observeSelectedPattern().value) {
             Pattern.Blocks -> "Blocks"
-            Pattern.Painted -> "Painted"
+            Pattern.Julia -> "Julia"
             else -> ""
         }
 
