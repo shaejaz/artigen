@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.shaejaz.artigen.R
 import com.shaejaz.artigen.bottompanel.patternconfigs.BlocksConfigViewModel
+import com.shaejaz.artigen.bottompanel.patternconfigs.JuliaConfigViewModel
 import com.shaejaz.artigen.bottompanel.patternconfigs.PatternConfigContainer
 import com.shaejaz.artigen.data.Pattern
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,6 +62,10 @@ class BottomPanel : Fragment() {
                             Pattern.Blocks -> {
                                 val blocksViewModel by activityViewModels<BlocksConfigViewModel>()
                                 blocksViewModel.saveConfig()
+                            }
+                            Pattern.Julia -> {
+                                val juliaViewModel by activityViewModels<JuliaConfigViewModel>()
+                                juliaViewModel.saveConfig()
                             }
                             else -> { }
                         }

@@ -7,22 +7,6 @@ use jni::JNIEnv;
 use jni::objects::{JClass, JString};
 use jni::sys::{jstring};
 
-fn generate_image() -> String {
-    let imgx = 1080;
-    let imgy = 2213;
-
-    let julia_pat = julia::Julia {
-        config: julia::JuliaConfig {
-            x: imgx,
-            y: imgy
-        }
-    };
-
-    let img = julia_pat.generate();
-
-    base64::generate_from_image(img)
-}
-
 #[no_mangle]
 #[allow(non_snake_case)]
 pub extern "C" fn Java_com_shaejaz_artigen_image_ImageViewModel_generateImageJNI(
@@ -44,6 +28,15 @@ pub extern "C" fn Java_com_shaejaz_artigen_image_ImageViewModel_generateImageJNI
         };
 
         let img = blocks_pattern.generate();
+        img_str = base64::generate_from_image(img);
+    } else if o_pattern == "Julia" {
+        let config_deserilized: julia::JuliaConfig = from_json_str(&o_config).expect("TEST");
+
+        let julia_pattern = julia::Julia {
+            config: config_deserilized
+        };
+
+        let img = julia_pattern.generate();
         img_str = base64::generate_from_image(img);
     }
 

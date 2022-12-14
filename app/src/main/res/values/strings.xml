@@ -14,4 +14,6 @@
     <string name="share_pattern_btn_desc">Share generated pattern</string>
     <string name="cancel_edit_pattern_config_btn_desc">Cancel changes to pattern config</string>
     <string name="apply_pattern_config_btn_desc">Apply changes to pattern config</string>
+    <string name="min_textview">Min Fractals</string>
+    <string name="max_textview">Max Fractals</string>
 </resources>

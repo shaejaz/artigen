@@ -15,7 +15,6 @@ import com.shaejaz.artigen.R
 import com.shaejaz.artigen.bottompanel.BottomPanelViewModel
 import com.shaejaz.artigen.data.Pattern
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -29,11 +28,11 @@ class PatternConfigContainer : Fragment() {
         val view = inflater.inflate(R.layout.frag_pattern_config_container, container, false)
 
         var frag: Fragment? = when (viewModel.observeSelectedPattern().value) {
-            Pattern.Painted -> {
-                PaintedConfig()
+            Pattern.Julia -> {
+                JuliaConfigFrag()
             }
             Pattern.Blocks -> {
-                BlocksConfig()
+                BlocksConfigFrag()
             }
             else -> {
                 null

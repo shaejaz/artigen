@@ -14,13 +14,11 @@ import com.shaejaz.artigen.bottompanel.BottomPanelViewModel
 import com.shaejaz.artigen.databinding.FragBlocksConfigBinding
 import com.shaejaz.artigen.utils.NumberFilter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BlocksConfig : Fragment() {
+class BlocksConfigFrag : Fragment() {
     private lateinit var binding: FragBlocksConfigBinding
     private val viewModel by activityViewModels<BlocksConfigViewModel>()
     private val bottomPanelViewModel by activityViewModels<BottomPanelViewModel>()
